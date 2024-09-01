@@ -60,21 +60,25 @@ def generate_new_string(dic):
     # generate strings from simple_infos
     for a_name, a_infos in dic.items():
 
+        replace_parts += '<li class="cards__item">'
+
         if a_name:
-            replace_parts += f"\nName: {a_name}\n"
+            replace_parts += f"Name: {a_name}<br/>"
 
         if a_infos:
             diet = a_infos.get("diet")
             if diet:
-                replace_parts += f"Diet: {diet}\n"
+                replace_parts += f"Diet: {diet}<br/>"
 
             location = a_infos.get("location")
             if location:
-                replace_parts += f"Location: {location}\n"
+                replace_parts += f"Location: {location}<br/>"
 
             a_type = a_infos.get("type")
             if a_type:
-                replace_parts += f"Type: {a_type}\n"
+                replace_parts += f"Type: {a_type}<br/>"
+
+            replace_parts += "</li>"
 
     return replace_parts
 
