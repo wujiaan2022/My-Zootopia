@@ -63,22 +63,26 @@ def generate_new_string(dic):
         replace_parts += '<li class="cards__item">'
 
         if a_name:
-            replace_parts += f"Name: {a_name}<br/>"
 
-        if a_infos:
-            diet = a_infos.get("diet")
-            if diet:
-                replace_parts += f"Diet: {diet}<br/>"
+            replace_parts += f"<div class='card__title'>{a_name}</div><br/>"
 
-            location = a_infos.get("location")
-            if location:
-                replace_parts += f"Location: {location}<br/>"
+            replace_parts += '<p class ="card__text">'
 
-            a_type = a_infos.get("type")
-            if a_type:
-                replace_parts += f"Type: {a_type}<br/>"
+            if a_infos:
+                diet = a_infos.get("diet")
+                if diet:
+                    replace_parts += f"<strong>Diet:</strong> {diet}<br/>"
 
-            replace_parts += "</li>"
+                location = a_infos.get("location")
+                if location:
+                    replace_parts += f"<strong>Location:</strong> {location}<br/>"
+
+                a_type = a_infos.get("type")
+                if a_type:
+                    replace_parts += f"<strong>Type:</strong> {a_type}<br/>"
+
+                replace_parts += "</p>"
+                replace_parts += "</li>"
 
     return replace_parts
 
