@@ -6,6 +6,7 @@ def load_data(file_path):
     try:
         with open(file_path, "r") as handle:
             return json.load(handle)
+
     except FileNotFoundError:
         print(f"Error: file {file_path} was not found.")
     except json.JSONDecodeError:
@@ -18,7 +19,7 @@ def get_simple_infos(file_path):
     try:
 
         # load json data
-        animal_infos = load_data("animals_data.json")
+        animal_infos = load_data(file_path)
 
         # debug code
         animal_names = list(map(lambda animal: animal["name"], animal_infos))
@@ -47,34 +48,54 @@ def get_simple_infos(file_path):
         print(f"There are totally {len(animal_infos)} animals in simple infos.")
 
         return simple_infos
+
     except Exception as e:
         print(f"An error occurred in get_simple_infos: {e}")
 
 
-def print_simple_infos(dic):
-    try:
-        for a_name, a_infos in dic.items():
+def generate_new_string(dic):
 
-            print()
-            if a_name:
-                print(f"Name: {a_name}")
-            if a_infos:
-                diet = a_infos["diet"]
-                if diet:
-                    print(f"Diet: {diet}")
-                location = a_infos["location"]
-                if location:
-                    print(f"Location: {location}")
-                a_type = a_infos["type"]
-                if a_type:
-                    print(f"Type: {a_type}")
-                print()
+    replace_parts = ""
 
-    except Exception as e:
-        print(f"An error occurred in print_simple_infos: {e}")
+    # generate strings from simple_infos
+    for a_name, a_infos in dic.items():
 
-# dic = get_simple_infos("animals_data.json")
-# print_simple_infos(dic)
+        if a_name:
+            replace_parts += f"\nName: {a_name}\n"
+
+        if a_infos:
+            diet = a_infos.get("diet")
+            if diet:
+                replace_parts += f"Diet: {diet}\n"
+
+            location = a_infos.get("location")
+            if location:
+                replace_parts += f"Location: {location}\n"
+
+            a_type = a_infos.get("type")
+            if a_type:
+                replace_parts += f"Type: {a_type}\n"
+
+    return replace_parts
+
+
+def replace_template(json_file, template_file):
+    with open(template_file, "r") as file:
+        old_file = file.read()
+
+    # file_path = "animals_data.json"
+    dic = get_simple_infos(json_file)
+
+    new_string = generate_new_string(dic)
+
+    new_file = old_file.replace("__REPLACE_ANIMALS_INFO__", new_string)
+
+    with open("animals.html", "w") as new_template:
+        new_template.write(new_file)
+
+
+# print(get_simple_infos("animals_data.json"))
+replace_template("animals_data.json", "animals_template.html")
 
 
 
