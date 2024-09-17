@@ -103,7 +103,9 @@ def replace_template(json_file, template_file):
 
 
 # print(get_simple_infos("animals_data.json"))
-replace_template("animals_data.json", "animals_template.html")
+# replace_template("animals_data.json", "animals_template.html")
+
+
 
 
 
