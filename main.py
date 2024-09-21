@@ -1,5 +1,5 @@
 
-from web_generate_by_api import replace_template, get_infos_from_api, get_simple_infos, generate_new_string, get_user_input
+from animals_web_generator import replace_template, get_infos_from_api, get_simple_infos, generate_new_string, get_user_input
 
 
 def main():
